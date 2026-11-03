@@ -1,0 +1,385 @@
+/* Jeffrey Robert Palin Jr.'s documents */
+
+@font-face {
+  font-family: "STIX Two Text";
+  src: url("STIXTwoText.woff") format("woff");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Math symbols (∂ ∇ ⟨ ⟩ ≤ ∑ 𝒜 …) in the same design as STIX Two Text.
+   Downloaded only on pages that use these characters. */
+@font-face {
+  font-family: "STIX Two Math";
+  src: url("STIXTwoMath.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2070-209F, U+20D0-20FF, U+2100-214F, U+2190-21FF, U+2200-22FF,
+    U+2300-23FF, U+2500-257F, U+25A0-25FF, U+27C0-27FF, U+2900-2AFF, U+1D00-1DBF,
+    U+1D400-1D7FF;
+}
+
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("InstrumentSans.woff") format("woff");
+  font-weight: 400 700;
+  font-stretch: 75% 100%;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --paper: #f6f7f9;
+  --sheet: #ffffff;
+  --ink: #1a2131;
+  --ink-soft: #586176;
+  --rule: #dadfe7;
+  --accent: #2a4fcb;
+  --accent-strong: #1f3fae;
+  --on-accent: #ffffff;
+  --ok: #17734f;
+  --warn: #a3361f;
+  --serif: "STIX Two Text", "STIX Two Math", "Cambria Math", Cambria, Georgia, "Times New Roman", serif;
+  --sans: "Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --column: 60rem;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #10131a;
+    --sheet: #181c24;
+    --ink: #e4e7ee;
+    --ink-soft: #9ba3b3;
+    --rule: #2b313d;
+    --accent: #93a9ff;
+    --accent-strong: #b3c3ff;
+    --on-accent: #0d1430;
+    --ok: #6fd3a6;
+    --warn: #ff9b85;
+    color-scheme: dark;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+main {
+  padding: 0 16px;
+}
+
+a {
+  color: inherit;
+}
+
+/* ---------- Home ---------- */
+
+.home-head {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: clamp(3rem, 9vw, 6.5rem) 0 clamp(2.25rem, 5vw, 3.75rem);
+}
+
+.home-title {
+  margin: 0;
+  max-width: 13ch;
+  font-size: clamp(2.6rem, 7.4vw, 5.5rem);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.018em;
+  text-wrap: balance;
+}
+
+.home-lede {
+  max-width: 34rem;
+  margin: 1.4rem 0 0;
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.gallery {
+  list-style: none;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 0 6rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15.5rem), 1fr));
+  gap: 3rem 1.75rem;
+}
+
+.doc-card {
+  display: block;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+/* A small sheet of paper showing how the document opens. The second sheet
+   peeking out underneath says "document", not "tile". */
+.sheet {
+  display: block;
+  aspect-ratio: 4 / 3.25;
+  overflow: hidden;
+  padding: 0.95rem 1.05rem 0;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  box-shadow:
+    0 5px 0 -2px var(--sheet),
+    0 5px 0 -1px var(--rule);
+}
+
+.sheet-text {
+  display: block;
+  height: 100%;
+  font-size: 0.5625rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  -webkit-mask-image: linear-gradient(to bottom, #000 50%, transparent 96%);
+  mask-image: linear-gradient(to bottom, #000 50%, transparent 96%);
+}
+
+.card-title {
+  display: block;
+  margin-top: 1.15rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.28;
+  overflow-wrap: anywhere;
+}
+
+.card-meta {
+  display: block;
+  margin-top: 0.3rem;
+  font-family: var(--sans);
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+}
+
+.doc-card:hover .sheet {
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--rule));
+}
+
+.doc-card:hover .card-title {
+  color: var(--accent);
+}
+
+.doc-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 6px;
+}
+
+/* ---------- Document page ---------- */
+
+.site-head {
+  max-width: calc(var(--column) + 32px);
+  margin: 0 auto;
+  padding: 1.25rem 16px 0;
+}
+
+.site-link {
+  font-family: var(--sans);
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+  text-decoration: none;
+  border-radius: 3px;
+}
+
+.site-link:hover {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.site-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.doc-head {
+  max-width: var(--column);
+  margin: 0 auto;
+  padding: clamp(1.75rem, 5vw, 3rem) 0 1.25rem;
+}
+
+.doc-title {
+  margin: 0;
+  font-size: clamp(1.75rem, 4.2vw, 2.75rem);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+.doc-meta {
+  margin: 0.6rem 0 0;
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+}
+
+.actions {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  margin: 0 -16px;
+  padding: 0 16px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+}
+
+.actions-inner {
+  max-width: var(--column);
+  margin: 0 auto;
+  padding: 0.75rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.625rem 0.75rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0 1.15rem;
+  font-family: var(--sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.btn-quiet {
+  background: var(--sheet);
+  color: var(--ink);
+  border-color: var(--rule);
+}
+
+.btn-quiet:hover {
+  border-color: var(--ink-soft);
+}
+
+.btn-ink {
+  background: var(--accent);
+  color: var(--on-accent);
+  border-color: var(--accent);
+}
+
+.btn-ink:hover {
+  background: var(--accent-strong);
+  border-color: var(--accent-strong);
+}
+
+.btn-ink.is-copied {
+  background: var(--ok);
+  border-color: var(--ok);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .btn {
+    transition: background-color 160ms ease, border-color 160ms ease;
+  }
+}
+
+.copy-status {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+}
+
+.copy-status.is-error {
+  color: var(--warn);
+}
+
+.sheet-page {
+  max-width: var(--column);
+  margin: 1.5rem auto 4.5rem;
+  padding: clamp(1.25rem, 5vw, 3.5rem) clamp(1rem, 5vw, 3.5rem);
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+}
+
+/* The document text, exactly as written: every line and blank line kept. */
+.doc-text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  tab-size: 4;
+}
+
+/* Long separator lines (=====) are clipped to the column instead of wrapping.
+   The full line is still what gets copied. */
+.rule-line {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: pre;
+  vertical-align: top;
+}
+
+@media (max-width: 30rem) {
+  .doc-text {
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+}
+
+@media print {
+  .site-head,
+  .actions {
+    display: none;
+  }
+
+  body,
+  .sheet-page {
+    background: #fff;
+    color: #000;
+  }
+
+  .sheet-page {
+    border: 0;
+    padding: 0;
+    margin: 0;
+  }
+}
